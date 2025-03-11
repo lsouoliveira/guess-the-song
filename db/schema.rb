@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_11_212629) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_11_212945) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,8 +40,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_11_212629) do
   end
 
   create_table "album_songs", force: :cascade do |t|
-    t.integer "album_id"
-    t.integer "song_id"
+    t.integer "album_id", null: false
+    t.integer "song_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_album_songs_on_album_id"
@@ -64,6 +64,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_11_212629) do
     t.index ["slug"], name: "index_games_on_slug", unique: true
   end
 
+  create_table "quiz_items", force: :cascade do |t|
+    t.integer "attempts", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.integer "position", null: false
+    t.integer "game_id", null: false
+    t.integer "song_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_quiz_items_on_game_id"
+    t.index ["position"], name: "index_quiz_items_on_position", unique: true
+    t.index ["song_id"], name: "index_quiz_items_on_song_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -74,4 +87,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_11_212629) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "album_songs", "albums"
   add_foreign_key "album_songs", "songs"
+  add_foreign_key "quiz_items", "games"
+  add_foreign_key "quiz_items", "songs"
 end
