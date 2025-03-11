@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_11_212501) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_11_212629) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -53,6 +53,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_11_212501) do
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "started_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_games_on_slug", unique: true
   end
 
   create_table "songs", force: :cascade do |t|
