@@ -110,8 +110,8 @@ GEM
       tzinfo
     factory_bot (6.5.1)
       activesupport (>= 6.1.0)
-    factory_bot_rails (6.4.0)
-      factory_bot (~> 6.4)
+    factory_bot_rails (6.4.4)
+      factory_bot (~> 6.5)
       railties (>= 5.0.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -376,7 +376,7 @@ DEPENDENCIES
   brakeman
   capybara
   debug
-  factory_bot_rails (= 6.4)
+  factory_bot_rails (= 6.4.4)
   inertia_rails (~> 3.6)
   jbuilder
   kamal
