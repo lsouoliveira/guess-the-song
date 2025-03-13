@@ -10,6 +10,7 @@ class Games::QuizItemsController < ApplicationController
         include: {
           game: {
             only: %i[ id created_at status ],
+            methods: %i[ score quiz_items_count],
             include: {
               album: {
                 only: %i[ id name ]

@@ -25,6 +25,10 @@ class Game < ApplicationRecord
     quiz_items.ordered.pending.first
   end
 
+  def quiz_items_count
+    quiz_items.count
+  end
+
   def score
     500
   end

@@ -20,6 +20,8 @@ export const QuizItemDetailHeader = ({
       setCurrentTime((Date.now() - gameCreatedAt) / 1000)
     }, 1000)
 
+    console.log(quizItem)
+
     return () => {
       clearInterval(interval)
     }
@@ -49,10 +51,10 @@ export const QuizItemDetailHeader = ({
         <div>{elapsedTime()}</div>
 
         <div className="flex gap-4 items-center justify-end flex-1">
-          <div>
-            <Badge color="gray">1 of 10</Badge>
-          </div>
-          <div color="green">500</div>
+          <Badge color="gray">
+            {quizItem.position} of {quizItem.game.quiz_items_count}
+          </Badge>
+          <Badge color="green">{quizItem.game.score}</Badge>
         </div>
       </div>
     </div>
