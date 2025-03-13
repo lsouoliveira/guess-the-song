@@ -16,6 +16,10 @@ class Games::QuizItemsController < ApplicationController
                 only: %i[ id name ]
               }
             }
+          },
+          song: {
+            only: %i[ id ],
+            methods: %i[ audio_path ]
           }
         }
       )
