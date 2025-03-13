@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_11_232333) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_11_233143) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -61,6 +61,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_11_232333) do
     t.datetime "started_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "album_id", null: false
+    t.integer "pool_size", default: 0, null: false
+    t.index ["album_id"], name: "index_games_on_album_id"
     t.index ["slug"], name: "index_games_on_slug", unique: true
   end
 
@@ -88,6 +91,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_11_232333) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "album_songs", "albums"
   add_foreign_key "album_songs", "songs"
+  add_foreign_key "games", "albums"
   add_foreign_key "quiz_items", "games"
   add_foreign_key "quiz_items", "songs"
 end
