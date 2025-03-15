@@ -34,7 +34,7 @@ class Game < ApplicationRecord
   end
 
   def song_segment_duration
-    5
+    2
   end
 
   private

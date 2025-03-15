@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useState } from "react"
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react"
 
 import { AudioPlayerProvider } from "./audio_player_provider"
 import { useAudio } from "@/context/audio_player_provider"
@@ -7,8 +13,6 @@ import { QuizItem } from "@/types/quiz_items"
 export type QuizItemPlayer = {
   play: () => void
   playCount: number
-  startTime: number
-  endTime: number
 }
 
 export const QuizItemPlayerContext = createContext<QuizItemPlayer | null>(null)
@@ -21,9 +25,26 @@ const ProviderRoot = ({
   children: ReactNode
 }) => {
   const audioPlayer = useAudio()
-  const [startTime, setStartTime] = useState(0)
-  const [endTime, setEndTime] = useState(0)
   const [playCount, setPlayCount] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const audioRef = audioPlayer.audioRef
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener("timeupdate", handleTimeUpdate)
+    }
+
+    return () => {
+      audioRef.current?.removeEventListener("timeupdate", handleTimeUpdate)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isPlaying && currentTime >= songEndTime()) {
+      pause()
+    }
+  }, [currentTime])
 
   const play = () => {
     if (playCount > 0) {
@@ -31,13 +52,33 @@ const ProviderRoot = ({
     }
 
     setPlayCount((prev) => prev + 1)
+    setIsPlaying(true)
+
+    audioPlayer.seek(songStartTime())
     audioPlayer.play()
   }
 
+  const handleTimeUpdate = () => {
+    const time = Math.floor(audioRef.current?.currentTime || 0)
+
+    setCurrentTime(time)
+  }
+
+  const pause = () => {
+    setIsPlaying(false)
+    audioRef.current?.pause()
+  }
+
+  const songStartTime = () => {
+    return quizItem.song.start_time
+  }
+
+  const songEndTime = () => {
+    return quizItem.song.start_time + quizItem.game.song_segment_duration
+  }
+
   return (
-    <QuizItemPlayerContext.Provider
-      value={{ startTime, endTime, playCount, play }}
-    >
+    <QuizItemPlayerContext.Provider value={{ playCount, play }}>
       {children}
     </QuizItemPlayerContext.Provider>
   )

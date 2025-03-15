@@ -19,7 +19,7 @@ class Games::QuizItemsController < ApplicationController
           },
           song: {
             only: %i[ id ],
-            methods: %i[ audio_path ]
+            methods: %i[ audio_path start_time duration ]
           }
         }
       )

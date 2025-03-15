@@ -1,17 +1,21 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, ReactNode } from "react"
 import { IconPlayerPlayFilled } from "@tabler/icons-react"
 import { ActionIcon } from "@mantine/core"
+import { Loader } from "@mantine/core"
 import AudioMotionAnalyzer from "audiomotion-analyzer"
 
 import { useAudio } from "@/context/audio_player_provider"
 import { useQuizItemPlayer } from "@/context/quiz_item_player_provider"
 
-type PlayButtonOverlayProps = {
+type OverlayProps = {
+  children: ReactNode
   show: boolean
-  onPlay: () => void
 }
 
-const PlayButtonOverlay = ({ show, onPlay }: PlayButtonOverlayProps) => {
+type PlayButtonProps = {
+  onPlay: () => void
+}
+const Overlay = ({ children, show }: OverlayProps) => {
   if (!show) {
     return
   }
@@ -19,16 +23,22 @@ const PlayButtonOverlay = ({ show, onPlay }: PlayButtonOverlayProps) => {
   return (
     <div className="w-full h-full bg-gray-300/50">
       <div className="flex flex-1 items-center justify-center absolute w-full h-full">
-        <ActionIcon radius="xl" size="48" onClick={onPlay}>
-          <IconPlayerPlayFilled size={24} />
-        </ActionIcon>
+        {children}
       </div>
     </div>
   )
 }
 
+const PlayButton = ({ onPlay }: PlayButtonProps) => {
+  return (
+    <ActionIcon radius="xl" size="48" onClick={onPlay}>
+      <IconPlayerPlayFilled size={24} />
+    </ActionIcon>
+  )
+}
+
 export const QuizItemDetailWaveVisualizer = () => {
-  const { audioRef } = useAudio()
+  const { audioRef, isReady } = useAudio()
   const { play, playCount } = useQuizItemPlayer()
 
   const containerRef = useRef(null)
@@ -69,7 +79,13 @@ export const QuizItemDetailWaveVisualizer = () => {
   return (
     <div className="flex h-24 relative">
       <div className="absolute w-full h-full">
-        <PlayButtonOverlay onPlay={play} show={!playCount} />
+        <Overlay show={!playCount}>
+          {isReady ? (
+            <PlayButton onPlay={play} />
+          ) : (
+            <Loader color="blue" type="dots" />
+          )}
+        </Overlay>
       </div>
       <div className="h-24" ref={containerRef}></div>
     </div>
