@@ -14,6 +14,10 @@ type QuizItemDetailActionsProps = {
 export const QuizItemDetailActions = ({
   quizItem,
 }: QuizItemDetailActionsProps) => {
+  if (quizItem.status !== "ongoing") {
+    return
+  }
+
   const replayForm = useForm({})
   const { isReady } = useAudio()
   const { playCount, isPlaying, play } = useQuizItemPlayer()

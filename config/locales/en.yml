@@ -29,3 +29,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        quiz_item:
+          attributes:
+            song:
+              wrong_guess: Wrong guess. Try again.

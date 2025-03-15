@@ -42,4 +42,32 @@ class QuizItem < ApplicationRecord
 
     true
   end
+
+  def guess(song_name)
+    return unless validate_guess(song_name)
+
+    transaction do
+      completed!
+
+      if game.next_item?
+        game.next_item.ongoing!
+      else
+        game.completed!
+      end
+    end
+
+    true
+  end
+
+  private
+  def validate_guess(song_name)
+    return true if sanitize_guess(song.name) == sanitize_guess(song_name)
+
+    errors.add(:song, :wrong_guess)
+    false
+  end
+
+  def sanitize_guess(song_name)
+    song_name.to_s.downcase.gsub(/[^a-zA-Z0-9 ]/, "")
+  end
 end

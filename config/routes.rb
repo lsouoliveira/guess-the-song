@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :quiz_items, path: :items, only: %i[ show ] do
         scope module: :quiz_items do
           resource :play, only: :create
+          resource :guess, only: :create
         end
       end
     end

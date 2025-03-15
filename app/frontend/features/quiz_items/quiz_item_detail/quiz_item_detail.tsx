@@ -1,9 +1,8 @@
-import { TextInput } from "@mantine/core"
-
 import { QuizItem } from "@/types/quiz_items"
 import { QuizItemDetailHeader } from "./quiz_item_detail_header"
 import { QuizItemDetailWaveVisualizer } from "./quiz_item_detail_wave_visualizer"
 import { QuizItemDetailActions } from "./quiz_item_detail_actions"
+import { QuizItemDetailGuessForm } from "./quiz_item_detail_guess_form"
 import { SecondaryActions } from "./secondary_actions"
 import { QuizItemPlayerProvider } from "@/context/quiz_item_player_provider"
 
@@ -19,9 +18,7 @@ export const QuizItemDetail = ({ quizItem }: QuizItemDetailProps) => {
           <QuizItemDetailHeader quizItem={quizItem} />
           <QuizItemDetailWaveVisualizer quizItem={quizItem} />
           <QuizItemDetailActions quizItem={quizItem} />
-          <div>
-            <TextInput placeholder="Enter your guess" />
-          </div>
+          <QuizItemDetailGuessForm quizItem={quizItem} />
           <SecondaryActions />
         </div>
 
