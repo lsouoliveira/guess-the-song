@@ -12,7 +12,6 @@ import { QuizItem } from "@/types/quiz_items"
 
 export type QuizItemPlayer = {
   play: () => void
-  replay: () => void
   playCount: number
   isPlaying: boolean
 }
@@ -49,10 +48,6 @@ const ProviderRoot = ({
   }, [currentTime])
 
   const play = () => {
-    if (playCount > 0) {
-      return
-    }
-
     setPlayCount((prev) => prev + 1)
     setIsPlaying(true)
 
@@ -63,14 +58,6 @@ const ProviderRoot = ({
   const pause = () => {
     setIsPlaying(false)
     audioRef.current?.pause()
-  }
-
-  const replay = () => {
-    setPlayCount((prev) => prev + 1)
-    setIsPlaying(true)
-
-    audioPlayer.seek(songStartTime())
-    audioPlayer.play()
   }
 
   const handleTimeUpdate = () => {
@@ -89,7 +76,7 @@ const ProviderRoot = ({
 
   return (
     <QuizItemPlayerContext.Provider
-      value={{ playCount, play, replay, isPlaying }}
+      value={{ playCount, play, isPlaying }}
     >
       {children}
     </QuizItemPlayerContext.Provider>

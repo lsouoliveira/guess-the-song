@@ -4,6 +4,7 @@ import { IconRotate, IconPlus } from "@tabler/icons-react"
 import { useForm } from "@inertiajs/react"
 
 import { QuizItem } from "@/types/quiz_items"
+import { useAudio } from "@/context/audio_player_provider"
 import { useQuizItemPlayer } from "@/context/quiz_item_player_provider"
 
 type QuizItemDetailActionsProps = {
@@ -14,14 +15,15 @@ export const QuizItemDetailActions = ({
   quizItem,
 }: QuizItemDetailActionsProps) => {
   const replayForm = useForm({})
-  const { playCount, isPlaying, replay } = useQuizItemPlayer()
+  const { isReady } = useAudio()
+  const { playCount, isPlaying, play } = useQuizItemPlayer()
 
   const disabledControls = () => {
     return playCount <= 0
   }
 
   const isReplayButtonDisabled = () => {
-    return isPlaying || quizItem.replays_available <= 0
+    return !isReady || isPlaying || quizItem.replays_available <= 0
   }
 
   const ReplayCountBadge = () => (
@@ -31,11 +33,11 @@ export const QuizItemDetailActions = ({
   )
 
   const handleReplay = () => {
-    replayForm.post(`${window.location.pathname}/replay`, {
+    replayForm.post(`${window.location.pathname}/play`, {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {
-        replay()
+        play()
       },
     })
   }

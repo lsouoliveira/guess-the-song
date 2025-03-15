@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     scope module: :games do
       resources :quiz_items, path: :items, only: %i[ show ] do
         scope module: :quiz_items do
-            resource :replay, only: :create
+          resource :play, only: :create
         end
       end
     end

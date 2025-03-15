@@ -3,6 +3,7 @@ import { IconPlayerPlayFilled } from "@tabler/icons-react"
 import { ActionIcon } from "@mantine/core"
 import { Loader } from "@mantine/core"
 import AudioMotionAnalyzer from "audiomotion-analyzer"
+import { useForm } from "@inertiajs/react"
 
 import { useAudio } from "@/context/audio_player_provider"
 import { useQuizItemPlayer } from "@/context/quiz_item_player_provider"
@@ -15,6 +16,7 @@ type OverlayProps = {
 
 type PlayButtonProps = {
   onPlay: () => void
+  disabled: boolean
 }
 const Overlay = ({ children, show }: OverlayProps) => {
   if (!show) {
@@ -30,9 +32,9 @@ const Overlay = ({ children, show }: OverlayProps) => {
   )
 }
 
-const PlayButton = ({ onPlay }: PlayButtonProps) => {
+const PlayButton = ({ onPlay, disabled }: PlayButtonProps) => {
   return (
-    <ActionIcon radius="xl" size="48" onClick={onPlay}>
+    <ActionIcon radius="xl" size="48" onClick={onPlay} disabled={disabled}>
       <IconPlayerPlayFilled size={24} />
     </ActionIcon>
   )
@@ -43,6 +45,7 @@ export const QuizItemDetailWaveVisualizer = ({
 }: {
   quizItem: QuizItem
 }) => {
+  const playForm = useForm({})
   const { audioRef, isReady } = useAudio()
   const { play, playCount } = useQuizItemPlayer()
 
@@ -81,15 +84,25 @@ export const QuizItemDetailWaveVisualizer = ({
     }
   }, [])
 
+  const handlePlay = () => {
+    playForm.post(`${window.location.pathname}/play`, {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        play()
+      },
+    })
+  }
+
   return (
     <div className="flex h-24 relative">
       <div className="absolute w-full h-full">
-        <Overlay show={quizItem.attempts == 0}>
-          {isReady ? (
-            <PlayButton onPlay={play} />
-          ) : (
-            <Loader color="blue" type="dots" />
-          )}
+        <Overlay show={isReady && !playCount && quizItem.plays_count == 0}>
+          <PlayButton onPlay={handlePlay} disabled={playForm.processing} />
+        </Overlay>
+
+        <Overlay show={!isReady}>
+          <Loader color="blue" type="dots" />
         </Overlay>
       </div>
       <div className="h-24" ref={containerRef}></div>
