@@ -33,6 +33,10 @@ class Game < ApplicationRecord
     500
   end
 
+  def song_segment_duration
+    5
+  end
+
   private
   def set_slug
     return if slug.present?

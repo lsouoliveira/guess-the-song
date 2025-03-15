@@ -7,4 +7,5 @@ export type Game = {
   status: string
   album: Album
   quiz_items_count: number
+  song_segment_duration: number
 }
