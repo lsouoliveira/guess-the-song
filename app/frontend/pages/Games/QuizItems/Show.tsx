@@ -1,6 +1,6 @@
 import GamesLayout from "@/layouts/GamesLayout"
 import { QuizItemDetail } from "@/features/quiz_items/quiz_item_detail"
-import { QuizItem } from "@/types/quiz_item"
+import { QuizItem } from "@types/quiz_items"
 
 type ShowProps = {
   quiz_item: QuizItem

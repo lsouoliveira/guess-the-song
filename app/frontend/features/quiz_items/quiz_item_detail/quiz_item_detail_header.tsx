@@ -7,20 +7,16 @@ type QuizItemDetailHeaderProps = {
   quizItem: QuizItem
 }
 
-export const QuizItemDetailHeader = ({
-  quizItem,
-}: QuizItemDetailHeaderProps) => {
+const ElapsedTime = ({ startedAt }: { startedAt: string }) => {
   const [currentTime, setCurrentTime] = useState(
-    (Date.now() - Date.parse(quizItem.game.created_at)) / 1000,
+    (Date.now() - Date.parse(startedAt)) / 1000,
   )
 
   useEffect(() => {
-    const gameCreatedAt = Date.parse(quizItem.game.created_at)
+    const gameCreatedAt = Date.parse(startedAt)
     const interval = setInterval(() => {
       setCurrentTime((Date.now() - gameCreatedAt) / 1000)
     }, 1000)
-
-    console.log(quizItem)
 
     return () => {
       clearInterval(interval)
@@ -41,6 +37,12 @@ export const QuizItemDetailHeader = ({
     return parts.map((unit) => String(unit).padStart(2, "0")).join(":")
   }
 
+  return <div>{elapsedTime()}</div>
+}
+
+export const QuizItemDetailHeader = ({
+  quizItem,
+}: QuizItemDetailHeaderProps) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center">
@@ -48,7 +50,7 @@ export const QuizItemDetailHeader = ({
           {quizItem.game.album.name}
         </div>
 
-        <div>{elapsedTime()}</div>
+        <ElapsedTime startedAt={quizItem.game.created_at} />
 
         <div className="flex gap-4 items-center justify-end flex-1">
           <Badge color="gray">

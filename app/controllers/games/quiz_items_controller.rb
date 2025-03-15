@@ -10,12 +10,16 @@ class Games::QuizItemsController < ApplicationController
         include: {
           game: {
             only: %i[ id created_at status ],
-            methods: %i[ score quiz_items_count],
+            methods: %i[ score quiz_items_count song_segment_duration ],
             include: {
               album: {
                 only: %i[ id name ]
               }
             }
+          },
+          song: {
+            only: %i[ id ],
+            methods: %i[ audio_path start_time duration ]
           }
         }
       )
