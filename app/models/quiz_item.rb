@@ -27,4 +27,15 @@ class QuizItem < ApplicationRecord
   def can_replay?
     replays_available.positive?
   end
+
+  def replay
+    unless can_replay?
+      errors.add(:attempts, :no_replays_available)
+      return false
+    end
+
+    increment! :attempts
+
+    true
+  end
 end

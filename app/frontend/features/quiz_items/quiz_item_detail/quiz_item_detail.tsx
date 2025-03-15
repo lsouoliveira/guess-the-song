@@ -17,7 +17,7 @@ export const QuizItemDetail = ({ quizItem }: QuizItemDetailProps) => {
       <div className="py-6 lg:py-16">
         <div className="space-y-4">
           <QuizItemDetailHeader quizItem={quizItem} />
-          <QuizItemDetailWaveVisualizer />
+          <QuizItemDetailWaveVisualizer quizItem={quizItem} />
           <QuizItemDetailActions quizItem={quizItem} />
           <div>
             <TextInput placeholder="Enter your guess" />

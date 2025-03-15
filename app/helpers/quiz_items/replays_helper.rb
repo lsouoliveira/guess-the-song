@@ -1,0 +1,2 @@
+module QuizItems::ReplaysHelper
+end

@@ -6,6 +6,7 @@ import AudioMotionAnalyzer from "audiomotion-analyzer"
 
 import { useAudio } from "@/context/audio_player_provider"
 import { useQuizItemPlayer } from "@/context/quiz_item_player_provider"
+import { QuizItem } from "@/types/quiz_items"
 
 type OverlayProps = {
   children: ReactNode
@@ -37,7 +38,11 @@ const PlayButton = ({ onPlay }: PlayButtonProps) => {
   )
 }
 
-export const QuizItemDetailWaveVisualizer = () => {
+export const QuizItemDetailWaveVisualizer = ({
+  quizItem,
+}: {
+  quizItem: QuizItem
+}) => {
   const { audioRef, isReady } = useAudio()
   const { play, playCount } = useQuizItemPlayer()
 
@@ -79,7 +84,7 @@ export const QuizItemDetailWaveVisualizer = () => {
   return (
     <div className="flex h-24 relative">
       <div className="absolute w-full h-full">
-        <Overlay show={!playCount}>
+        <Overlay show={quizItem.attempts == 0}>
           {isReady ? (
             <PlayButton onPlay={play} />
           ) : (

@@ -3,7 +3,7 @@ import { Song } from "./songs"
 
 export type QuizItem = {
   id: number
-  attemps: number
+  attempts: number
   status: string
   position: number
   replays_available: number
