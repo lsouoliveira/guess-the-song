@@ -95,7 +95,7 @@ export const QuizItemDetailWaveVisualizer = ({
   }
 
   return (
-    <div className="flex h-24 relative">
+    <div className="flex relative h-24">
       <div className="absolute w-full h-full">
         <Overlay show={isReady && !playCount && quizItem.plays_count == 0}>
           <PlayButton onPlay={handlePlay} disabled={playForm.processing} />
@@ -105,7 +105,7 @@ export const QuizItemDetailWaveVisualizer = ({
           <Loader color="blue" type="dots" />
         </Overlay>
       </div>
-      <div className="h-24" ref={containerRef}></div>
+      <div ref={containerRef} className="w-full"></div>
     </div>
   )
 }
