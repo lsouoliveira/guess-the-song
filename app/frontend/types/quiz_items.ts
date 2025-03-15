@@ -6,6 +6,7 @@ export type QuizItem = {
   attemps: number
   status: string
   position: number
+  replays_available: number
   created_at: string
   game: Game
   song: Song

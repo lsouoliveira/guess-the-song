@@ -37,6 +37,10 @@ class Game < ApplicationRecord
     2
   end
 
+  def max_replays
+    2
+  end
+
   private
   def set_slug
     return if slug.present?

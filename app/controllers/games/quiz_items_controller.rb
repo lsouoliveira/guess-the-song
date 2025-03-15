@@ -7,6 +7,7 @@ class Games::QuizItemsController < ApplicationController
     render inertia: "Games/QuizItems/Show", props: {
       quiz_item: @quiz_item.as_json(
         only: %i[ id attemps status position created_at ],
+        methods: %i[ replays_available ],
         include: {
           game: {
             only: %i[ id created_at status ],

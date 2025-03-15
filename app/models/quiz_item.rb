@@ -19,4 +19,12 @@ class QuizItem < ApplicationRecord
   def current_item?
     game.next_item == self
   end
+
+  def replays_available
+    game.max_replays - attempts
+  end
+
+  def can_replay?
+    replays_available.positive?
+  end
 end

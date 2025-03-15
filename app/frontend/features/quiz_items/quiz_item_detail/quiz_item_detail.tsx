@@ -3,7 +3,7 @@ import { TextInput } from "@mantine/core"
 import { QuizItem } from "@/types/quiz_items"
 import { QuizItemDetailHeader } from "./quiz_item_detail_header"
 import { QuizItemDetailWaveVisualizer } from "./quiz_item_detail_wave_visualizer"
-import { Actions } from "./actions"
+import { QuizItemDetailActions } from "./quiz_item_detail_actions"
 import { SecondaryActions } from "./secondary_actions"
 import { QuizItemPlayerProvider } from "@/context/quiz_item_player_provider"
 
@@ -18,7 +18,7 @@ export const QuizItemDetail = ({ quizItem }: QuizItemDetailProps) => {
         <div className="space-y-4">
           <QuizItemDetailHeader quizItem={quizItem} />
           <QuizItemDetailWaveVisualizer />
-          <Actions />
+          <QuizItemDetailActions quizItem={quizItem} />
           <div>
             <TextInput placeholder="Enter your guess" />
           </div>
