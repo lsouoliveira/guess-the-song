@@ -1,4 +1,6 @@
 class Game < ApplicationRecord
+  MAX_SCORE_BY_ITEM = 100
+
   enum :status, %i[ ongoing completed ], default: :ongoing
 
   belongs_to :album
@@ -30,7 +32,7 @@ class Game < ApplicationRecord
   end
 
   def score
-    500
+    quiz_items.map { (MAX_SCORE_BY_ITEM + -it.attempts * 25).clamp(0, MAX_SCORE_BY_ITEM) }
   end
 
   def song_segment_duration

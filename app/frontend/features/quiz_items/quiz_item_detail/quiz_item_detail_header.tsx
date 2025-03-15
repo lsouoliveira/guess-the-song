@@ -43,6 +43,18 @@ const ElapsedTime = ({ startedAt }: { startedAt: string }) => {
 export const QuizItemDetailHeader = ({
   quizItem,
 }: QuizItemDetailHeaderProps) => {
+  const badgeColor = () => {
+    const score = quizItem.game.score
+
+    if (score >= 75) {
+      return "green"
+    } else if (score >= 50) {
+      return "yellow"
+    } else {
+      return "red"
+    }
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center">
@@ -56,7 +68,7 @@ export const QuizItemDetailHeader = ({
           <Badge color="gray">
             {quizItem.position} of {quizItem.game.quiz_items_count}
           </Badge>
-          <Badge color="green">{quizItem.game.score}</Badge>
+          <Badge color={badgeColor()}>{quizItem.game.score}</Badge>
         </div>
       </div>
     </div>
