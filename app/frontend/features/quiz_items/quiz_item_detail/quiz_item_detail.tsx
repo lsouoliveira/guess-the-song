@@ -5,7 +5,7 @@ import { QuizItemDetailHeader } from "./quiz_item_detail_header"
 import { QuizItemDetailWaveVisualizer } from "./quiz_item_detail_wave_visualizer"
 import { Actions } from "./actions"
 import { SecondaryActions } from "./secondary_actions"
-import { AudioPlayerProvider } from "@/context/audio_player_provider"
+import { QuizItemPlayerProvider } from "@/context/quiz_item_player_provider"
 
 type QuizItemDetailProps = {
   quizItem: QuizItem
@@ -13,7 +13,7 @@ type QuizItemDetailProps = {
 
 export const QuizItemDetail = ({ quizItem }: QuizItemDetailProps) => {
   return (
-    <AudioPlayerProvider src={quizItem.song.audio_path}>
+    <QuizItemPlayerProvider quizItem={quizItem}>
       <div className="py-6 lg:py-16">
         <div className="space-y-4">
           <QuizItemDetailHeader quizItem={quizItem} />
@@ -32,6 +32,6 @@ export const QuizItemDetail = ({ quizItem }: QuizItemDetailProps) => {
       </div>
       */}
       </div>
-    </AudioPlayerProvider>
+    </QuizItemPlayerProvider>
   )
 }

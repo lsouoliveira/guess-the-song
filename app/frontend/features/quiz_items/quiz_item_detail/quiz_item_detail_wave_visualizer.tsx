@@ -1,29 +1,36 @@
-import { useRef, useEffect, RefObject } from "react"
+import { useRef, useEffect } from "react"
 import { IconPlayerPlayFilled } from "@tabler/icons-react"
 import { ActionIcon } from "@mantine/core"
 import AudioMotionAnalyzer from "audiomotion-analyzer"
 
 import { useAudio } from "@/context/audio_player_provider"
+import { useQuizItemPlayer } from "@/context/quiz_item_player_provider"
 
-type PlayButtonProps = {
+type PlayButtonOverlayProps = {
   show: boolean
   onPlay: () => void
 }
 
-const PlayButton = ({ show, onPlay }: PlayButtonProps) => {
+const PlayButtonOverlay = ({ show, onPlay }: PlayButtonOverlayProps) => {
   if (!show) {
     return
   }
 
   return (
-    <ActionIcon radius="xl" size="48" onClick={onPlay}>
-      <IconPlayerPlayFilled size={24} />
-    </ActionIcon>
+    <div className="w-full h-full bg-gray-300/50">
+      <div className="flex flex-1 items-center justify-center absolute w-full h-full">
+        <ActionIcon radius="xl" size="48" onClick={onPlay}>
+          <IconPlayerPlayFilled size={24} />
+        </ActionIcon>
+      </div>
+    </div>
   )
 }
 
 export const QuizItemDetailWaveVisualizer = () => {
-  const { play, isPlaying, audioRef } = useAudio()
+  const { audioRef } = useAudio()
+  const { play, playCount } = useQuizItemPlayer()
+
   const containerRef = useRef(null)
   const audioMotionAnalizerRef = useRef<AudioMotionAnalyzer | null>(null)
 
@@ -61,11 +68,8 @@ export const QuizItemDetailWaveVisualizer = () => {
 
   return (
     <div className="flex h-24 relative">
-      {!isPlaying ? (
-        <div className="bg-gray-300/100 absolute w-full h-full opacity-50"></div>
-      ) : null}
-      <div className="flex flex-1 items-center justify-center absolute w-full h-full">
-        <PlayButton onPlay={play} show={!isPlaying} />
+      <div className="absolute w-full h-full">
+        <PlayButtonOverlay onPlay={play} show={!playCount} />
       </div>
       <div className="h-24" ref={containerRef}></div>
     </div>
