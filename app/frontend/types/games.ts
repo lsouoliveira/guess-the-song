@@ -8,4 +8,5 @@ export type Game = {
   album: Album
   quiz_items_count: number
   song_segment_duration: number
+  max_score: number
 }

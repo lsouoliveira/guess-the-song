@@ -14,10 +14,6 @@ type QuizItemDetailActionsProps = {
 export const QuizItemDetailActions = ({
   quizItem,
 }: QuizItemDetailActionsProps) => {
-  if (quizItem.status !== "ongoing") {
-    return
-  }
-
   const replayForm = useForm({})
   const { isReady } = useAudio()
   const { playCount, isPlaying, play } = useQuizItemPlayer()
@@ -27,7 +23,13 @@ export const QuizItemDetailActions = ({
   }
 
   const isReplayButtonDisabled = () => {
-    return !isReady || isPlaying || quizItem.replays_available <= 0
+    return (
+      quizItem.status !== "ongoing" ||
+      !isReady ||
+      isPlaying ||
+      quizItem.plays_count <= 0 ||
+      quizItem.replays_available <= 0
+    )
   }
 
   const ReplayCountBadge = () => (

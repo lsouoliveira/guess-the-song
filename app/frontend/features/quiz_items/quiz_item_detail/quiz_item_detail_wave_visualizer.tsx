@@ -45,10 +45,6 @@ export const QuizItemDetailWaveVisualizer = ({
 }: {
   quizItem: QuizItem
 }) => {
-  if (quizItem.status !== "ongoing") {
-    return
-  }
-
   const playForm = useForm({})
   const { audioRef, isReady } = useAudio()
   const { play, playCount } = useQuizItemPlayer()
@@ -101,7 +97,14 @@ export const QuizItemDetailWaveVisualizer = ({
   return (
     <div className="flex relative h-24">
       <div className="absolute w-full h-full">
-        <Overlay show={isReady && !playCount && quizItem.plays_count == 0}>
+        <Overlay
+          show={
+            isReady &&
+            quizItem.status === "ongoing" &&
+            !playCount &&
+            quizItem.plays_count == 0
+          }
+        >
           <PlayButton onPlay={handlePlay} disabled={playForm.processing} />
         </Overlay>
 

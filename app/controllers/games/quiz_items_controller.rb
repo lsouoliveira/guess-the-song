@@ -11,7 +11,7 @@ class Games::QuizItemsController < ApplicationController
         include: {
           game: {
             only: %i[ id created_at status ],
-            methods: %i[ score quiz_items_count song_segment_duration ],
+            methods: %i[ score quiz_items_count song_segment_duration max_score ],
             include: {
               album: {
                 only: %i[ id name ]

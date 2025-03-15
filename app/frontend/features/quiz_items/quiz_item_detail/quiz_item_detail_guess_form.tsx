@@ -9,10 +9,6 @@ export const QuizItemDetailGuessForm = ({
 }: {
   quizItem: QuizItem
 }) => {
-  if (quizItem.status !== "ongoing") {
-    return
-  }
-
   const { data, setData, post, errors } = useForm({
     guess: "",
   })
@@ -37,6 +33,7 @@ export const QuizItemDetailGuessForm = ({
         value={data.guess}
         onChange={(e) => setData("guess", e.target.value)}
         onKeyDown={handleKeyDown}
+        disabled={quizItem.status !== "ongoing"}
         error={errors.song}
       />
     </div>

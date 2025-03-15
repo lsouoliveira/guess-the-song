@@ -39,6 +39,10 @@ class Game < ApplicationRecord
     quiz_items.map { (MAX_SCORE_BY_ITEM + -it.replays_count * 25).clamp(0, MAX_SCORE_BY_ITEM) }
   end
 
+  def max_score
+    MAX_SCORE_BY_ITEM * quiz_items.count
+  end
+
   def song_segment_duration
     2
   end

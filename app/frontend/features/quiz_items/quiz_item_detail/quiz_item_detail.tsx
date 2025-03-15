@@ -3,7 +3,9 @@ import { QuizItemDetailHeader } from "./quiz_item_detail_header"
 import { QuizItemDetailWaveVisualizer } from "./quiz_item_detail_wave_visualizer"
 import { QuizItemDetailActions } from "./quiz_item_detail_actions"
 import { QuizItemDetailGuessForm } from "./quiz_item_detail_guess_form"
-import { SecondaryActions } from "./secondary_actions"
+import { QuizItemDetailSecondaryActions } from "./quiz_item_detail_secondary_actions"
+import { QuizItemDetailAlert } from "./quiz_item_detail_alert"
+import { QuizItemDetailPlayer } from "./quiz_item_detail_player"
 import { QuizItemPlayerProvider } from "@/context/quiz_item_player_provider"
 
 type QuizItemDetailProps = {
@@ -19,15 +21,14 @@ export const QuizItemDetail = ({ quizItem }: QuizItemDetailProps) => {
           <QuizItemDetailWaveVisualizer quizItem={quizItem} />
           <QuizItemDetailActions quizItem={quizItem} />
           <QuizItemDetailGuessForm quizItem={quizItem} />
-          <SecondaryActions />
+          <QuizItemDetailSecondaryActions quizItem={quizItem} />
         </div>
 
-        {/*<div className="border-t mt-8 py-8 lg:mt-12 lg:py-12 border-[light-dark(var(--mantine-color-gray-3),_var(--mantine-color-dark-4))]">
-        <Card padding="md" radius="md" withBorder>
-          <Player />
-        </Card>
-      </div>
-      */}
+        <div className="py-8">
+          <QuizItemDetailAlert quizItem={quizItem} />
+        </div>
+
+        <QuizItemDetailPlayer quizItem={quizItem} />
       </div>
     </QuizItemPlayerProvider>
   )

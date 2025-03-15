@@ -44,11 +44,11 @@ export const QuizItemDetailHeader = ({
   quizItem,
 }: QuizItemDetailHeaderProps) => {
   const badgeColor = () => {
-    const score = quizItem.game.score
+    const score = quizItem.game.score / quizItem.game.max_score
 
-    if (score >= 75) {
+    if (score >= 1) {
       return "green"
-    } else if (score >= 50) {
+    } else if (score >= 0.5) {
       return "yellow"
     } else {
       return "red"
