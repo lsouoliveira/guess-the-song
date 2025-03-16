@@ -9,4 +9,6 @@ export type Game = {
   quiz_items_count: number
   song_segment_duration: number
   max_score: number
+  next_item_path?: string
+  slug: string
 }

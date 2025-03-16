@@ -45,6 +45,10 @@ export const QuizItemDetailWaveVisualizer = ({
 }: {
   quizItem: QuizItem
 }) => {
+  if (quizItem.status !== "ongoing") {
+    return
+  }
+
   const playForm = useForm({})
   const { audioRef, isReady } = useAudio()
   const { play, playCount } = useQuizItemPlayer()

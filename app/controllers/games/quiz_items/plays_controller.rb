@@ -7,9 +7,9 @@ module Games
 
       def create
         if @quiz_item.play
-          redirect_to game_quiz_item_path(@game.slug, @game.next_item)
+          redirect_to game_quiz_item_path(@game.slug, @quiz_item)
         else
-          redirect_to game_quiz_item_path(@game.slug, @game.next_item), inertia: { errors: @quiz_item.errors }
+          redirect_to game_quiz_item_path(@game.slug, @quiz_item), inertia: { errors: @quiz_item.errors }
         end
       end
 

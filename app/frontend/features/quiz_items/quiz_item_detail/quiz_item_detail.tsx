@@ -21,14 +21,18 @@ export const QuizItemDetail = ({ quizItem }: QuizItemDetailProps) => {
           <QuizItemDetailWaveVisualizer quizItem={quizItem} />
           <QuizItemDetailActions quizItem={quizItem} />
           <QuizItemDetailGuessForm quizItem={quizItem} />
-          <QuizItemDetailSecondaryActions quizItem={quizItem} />
         </div>
 
         <div className="py-8">
           <QuizItemDetailAlert quizItem={quizItem} />
         </div>
 
-        <QuizItemDetailPlayer quizItem={quizItem} />
+        <div className="space-y-8">
+          <QuizItemDetailPlayer quizItem={quizItem} />
+          <div className="flex items-center justify-center">
+              <QuizItemDetailSecondaryActions quizItem={quizItem} />
+          </div>
+        </div>
       </div>
     </QuizItemPlayerProvider>
   )

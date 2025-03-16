@@ -9,6 +9,10 @@ export const QuizItemDetailGuessForm = ({
 }: {
   quizItem: QuizItem
 }) => {
+  if (quizItem.status !== "ongoing") {
+    return
+  }
+
   const { data, setData, post, errors } = useForm({
     guess: "",
   })

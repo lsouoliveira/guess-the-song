@@ -7,10 +7,10 @@ class Games::QuizItemsController < ApplicationController
     render inertia: "Games/QuizItems/Show", props: {
       quiz_item: @quiz_item.as_json(
         only: %i[ id attempts plays_count status position created_at ],
-        methods: %i[ replays_available ],
+        methods: %i[ replays_available previous_item_id next_item_id ],
         include: {
           game: {
-            only: %i[ id created_at status ],
+            only: %i[ id created_at status slug ],
             methods: %i[ score quiz_items_count song_segment_duration max_score ],
             include: {
               album: {

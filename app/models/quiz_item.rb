@@ -32,6 +32,34 @@ class QuizItem < ApplicationRecord
     replays_available.positive?
   end
 
+  def next_item_id
+    return nil unless next_item?
+
+    next_item.id
+  end
+
+  def previous_item_id
+    return nil unless previous_item?
+
+    previous_item.id
+  end
+
+  def next_item
+    game.quiz_items.find_by(position: position + 1)
+  end
+
+  def next_item?
+    next_item.present?
+  end
+
+  def previous_item
+    game.quiz_items.find_by(position: position - 1)
+  end
+
+  def previous_item?
+    previous_item.present?
+  end
+
   def play
     if plays_count.positive? && !can_replay?
       errors.add(:plays_count, :no_replays_available)

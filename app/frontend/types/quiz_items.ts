@@ -11,4 +11,6 @@ export type QuizItem = {
   created_at: string
   game: Game
   song: Song
+  previous_item_id: number
+  next_item_id: number
 }
