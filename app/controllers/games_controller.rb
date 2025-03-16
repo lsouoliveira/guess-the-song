@@ -3,7 +3,17 @@ class GamesController < ApplicationController
   before_action :ensure_game_is_completed, only: :show
 
   def show
-    render inertia: "Games/Show"
+    render inertia: "Games/Show", props: {
+      game: @game.as_json(
+        only: %i[ id created_at status slug finished_at ],
+        methods: %i[ score quiz_items_count song_segment_duration max_score ],
+        include: {
+          album: {
+            only: %i[ id name ]
+          }
+        }
+      )
+    }
   end
 
   private

@@ -80,7 +80,7 @@ class QuizItem < ApplicationRecord
       if game.next_item?
         game.next_item.ongoing!
       else
-        game.completed!
+        game.complete!
       end
     end
 

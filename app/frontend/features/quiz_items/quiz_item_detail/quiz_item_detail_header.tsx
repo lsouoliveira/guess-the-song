@@ -7,7 +7,21 @@ type QuizItemDetailHeaderProps = {
   quizItem: QuizItem
 }
 
-const ElapsedTime = ({ startedAt }: { startedAt: string }) => {
+const formatTime = (time: number) => {
+  let hours = Math.floor(time / 3600)
+  let minutes = Math.floor((time % 3600) / 60)
+  let seconds = Math.floor(time % 60)
+
+  const parts = [hours, minutes, seconds]
+
+  if (!hours) {
+    parts.shift()
+  }
+
+  return parts.map((unit) => String(unit).padStart(2, "0")).join(":")
+}
+
+const Timer = ({ startedAt }: { startedAt: string }) => {
   const [currentTime, setCurrentTime] = useState(
     (Date.now() - Date.parse(startedAt)) / 1000,
   )
@@ -23,21 +37,7 @@ const ElapsedTime = ({ startedAt }: { startedAt: string }) => {
     }
   }, [])
 
-  const elapsedTime = () => {
-    let hours = Math.floor(currentTime / 3600)
-    let minutes = Math.floor((currentTime % 3600) / 60)
-    let seconds = Math.floor(currentTime % 60)
-
-    const parts = [hours, minutes, seconds]
-
-    if (!hours) {
-      parts.shift()
-    }
-
-    return parts.map((unit) => String(unit).padStart(2, "0")).join(":")
-  }
-
-  return <div>{elapsedTime()}</div>
+  return <div>{formatTime(currentTime)}</div>
 }
 
 export const QuizItemDetailHeader = ({
@@ -55,6 +55,15 @@ export const QuizItemDetailHeader = ({
     }
   }
 
+  const totalTime = () => {
+    const time =
+      (Date.parse(quizItem.game.finished_at) -
+        Date.parse(quizItem.game.created_at)) /
+      1000
+
+    return formatTime(time)
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center">
@@ -62,7 +71,11 @@ export const QuizItemDetailHeader = ({
           {quizItem.game.album.name}
         </div>
 
-        <ElapsedTime startedAt={quizItem.game.created_at} />
+        {quizItem.game.status == "completed" ? (
+          <div>{totalTime()}</div>
+        ) : (
+          <Timer startedAt={quizItem.game.created_at} />
+        )}
 
         <div className="flex gap-4 items-center justify-end flex-1">
           <Badge color="gray">

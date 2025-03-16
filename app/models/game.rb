@@ -51,6 +51,13 @@ class Game < ApplicationRecord
     2
   end
 
+  def complete!
+    transaction do
+      completed!
+      update!(finished_at: Time.zone.now)
+    end
+  end
+
   private
   def set_slug
     return if slug.present?

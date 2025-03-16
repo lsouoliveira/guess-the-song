@@ -1,6 +1,7 @@
 import { QuizItem } from "@/types/quiz_items"
 import { Link } from "@inertiajs/react"
 import { Button } from "@mantine/core"
+import { IconArrowRight, IconArrowLeft, IconTrophy } from "@tabler/icons-react"
 
 const NextQuizItemLink = ({ href, show }: { href?: string; show: boolean }) => {
   if (!show) {
@@ -9,7 +10,9 @@ const NextQuizItemLink = ({ href, show }: { href?: string; show: boolean }) => {
 
   return (
     <Link href={href || ""}>
-      <Button>Next song</Button>
+      <Link href={href || ""}>
+        <Button rightSection={<IconArrowRight size={14} />}>Next song</Button>
+      </Link>
     </Link>
   )
 }
@@ -27,7 +30,7 @@ const PreviousQuizItemLink = ({
 
   return (
     <Link href={href || ""}>
-      <Button>Previous song</Button>
+      <Button leftSection={<IconArrowLeft size={14} />}>Previous song</Button>
     </Link>
   )
 }
@@ -39,7 +42,9 @@ const ResultsLink = ({ href, show }: { href?: string; show: boolean }) => {
 
   return (
     <Link href={href || ""}>
-      <Button color="green">See your Results</Button>
+      <Button color="green" leftSection={<IconTrophy size={14} />}>
+        See your Results
+      </Button>
     </Link>
   )
 }

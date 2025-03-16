@@ -19,7 +19,7 @@ export const Player = () => {
       </div>
 
       <div className="flex items-center justify-center gap-4">
-        <ActionIcon variant="default" size={42} radius="xl">
+        <ActionIcon variant="default" size={48} radius="xl">
           <IconPlayerPlayFilled size={24} />
         </ActionIcon>
       </div>

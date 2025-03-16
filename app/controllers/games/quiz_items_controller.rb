@@ -10,7 +10,7 @@ class Games::QuizItemsController < ApplicationController
         methods: %i[ replays_available previous_item_id next_item_id ],
         include: {
           game: {
-            only: %i[ id created_at status slug ],
+            only: %i[ id created_at status slug finished_at ],
             methods: %i[ score quiz_items_count song_segment_duration max_score ],
             include: {
               album: {
