@@ -6,11 +6,10 @@ type AlbumCardProps = {
 }
 
 export const AlbumCard = ({ album }: AlbumCardProps) => {
-    console.log(album)
   return (
     <Card>
       <Card.Section className="relative">
-        <Image src={album.cover_path} className="aspect-video object-center" />
+        <Image src={album.cover_path} className="h-64 object-center" />
 
         <div className="w-full h-full absolute top-0 left-0 bg-black/40 p-6 flex items-end">
           <div>
