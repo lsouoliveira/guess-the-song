@@ -30,7 +30,7 @@ export const QuizItemDetail = ({ quizItem }: QuizItemDetailProps) => {
         <div className="space-y-8">
           <QuizItemDetailPlayer quizItem={quizItem} />
           <div className="flex items-center justify-center">
-              <QuizItemDetailSecondaryActions quizItem={quizItem} />
+            <QuizItemDetailSecondaryActions quizItem={quizItem} />
           </div>
         </div>
       </div>

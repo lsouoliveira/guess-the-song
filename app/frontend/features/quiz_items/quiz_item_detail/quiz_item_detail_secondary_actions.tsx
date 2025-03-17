@@ -10,9 +10,7 @@ const NextQuizItemLink = ({ href, show }: { href?: string; show: boolean }) => {
 
   return (
     <Link href={href || ""}>
-      <Link href={href || ""}>
-        <Button rightSection={<IconArrowRight size={14} />}>Next song</Button>
-      </Link>
+      <Button rightSection={<IconArrowRight size={14} />}>Next song</Button>
     </Link>
   )
 }
