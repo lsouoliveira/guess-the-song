@@ -18,7 +18,9 @@ export default function GamesLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <Container size="sm">{children}</Container>
+      <Container size="sm" className="py-6 lg:py-16">
+        {children}
+      </Container>
     </MantineProvider>
   )
 }

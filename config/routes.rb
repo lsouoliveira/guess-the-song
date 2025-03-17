@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "albums#index"
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :games, only: :show, param: :slug do
@@ -11,4 +13,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :albums, only: :index
 end
