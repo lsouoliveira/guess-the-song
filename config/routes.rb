@@ -14,5 +14,5 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :albums, only: :index
+  resources :albums, only: %i[ index show ]
 end
