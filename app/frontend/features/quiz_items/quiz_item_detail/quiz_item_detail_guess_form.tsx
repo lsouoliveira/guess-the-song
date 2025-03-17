@@ -9,7 +9,11 @@ export const QuizItemDetailGuessForm = ({
 }: {
   quizItem: QuizItem
 }) => {
-  if (quizItem.status !== "ongoing") {
+  const ongoing = () => {
+    return quizItem.status === "ongoing"
+  }
+
+  if (!ongoing()) {
     return
   }
 

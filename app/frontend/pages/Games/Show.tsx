@@ -1,11 +1,14 @@
 import { Title } from "@mantine/core"
 import { RingProgress, Text, Button } from "@mantine/core"
+import { Link } from "@inertiajs/react"
 
 import GamesLayout from "../../layouts/GamesLayout"
 
 import { Game } from "@/types/games"
 
 export default function Show({ game }: { game: Game }) {
+  const albumPath = `/albums/${game.album.id}`
+
   const formattedTime = (time: number) => {
     let hours = Math.floor(time / 3600)
     let minutes = Math.floor((time % 3600) / 60)
@@ -104,7 +107,9 @@ export default function Show({ game }: { game: Game }) {
           </div>
 
           <div className="flex justify-center mt-6">
-            <Button>Play again</Button>
+            <Link href={albumPath}>
+              <Button>Play again</Button>
+            </Link>
           </div>
         </div>
       </div>

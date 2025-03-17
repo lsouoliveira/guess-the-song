@@ -1,8 +1,13 @@
 import MainLayout from "@/layouts/main_layout"
 import { Title, Text, Image, Button, Card, Group } from "@mantine/core"
 import { Album } from "@/types/albums"
+import { router } from "@inertiajs/react"
 
 export default function Show({ album }: { album: Album }) {
+  const handlePlay = () => {
+    router.post(`/albums/${album.id}/games`)
+  }
+
   return (
     <MainLayout>
       <div className="max-w-2xl mx-auto">
@@ -21,7 +26,7 @@ export default function Show({ album }: { album: Album }) {
           </Group>
 
           <Group mt="md" justify="center">
-            <Button>Play now</Button>
+            <Button onClick={handlePlay}>Play now</Button>
           </Group>
         </Card>
       </div>

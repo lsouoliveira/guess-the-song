@@ -4,6 +4,12 @@ class QuizItem < ApplicationRecord
   belongs_to :game
   belongs_to :song
 
+  validates :position, presence: true, uniqueness: { scope: :game_id }
+  validates :status, presence: true
+  validates :plays_count, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :song, presence: true
+  validates :game, presence: true
+
   scope :ordered, -> { order(:position) }
   scope :ongoing, -> { where(status: :ongoing) }
   scope :not_started, -> { where(status: :not_started) }

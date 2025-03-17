@@ -14,5 +14,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :albums, only: %i[ index show ]
+  resources :albums, only: %i[ index show ] do
+    scope module: :albums do
+      resources :games, only: :create
+    end
+  end
 end
