@@ -2,6 +2,7 @@ import { TextInput } from "@mantine/core"
 import { useForm } from "@inertiajs/react"
 import { KeyboardEvent } from "react"
 
+import { useQuizItemPlayer } from "@/context/quiz_item_player_provider"
 import { QuizItem } from "@/types/quiz_items"
 
 export const QuizItemDetailGuessForm = ({
@@ -9,6 +10,8 @@ export const QuizItemDetailGuessForm = ({
 }: {
   quizItem: QuizItem
 }) => {
+  const { pause } = useQuizItemPlayer()
+
   const ongoing = () => {
     return quizItem.status === "ongoing"
   }
@@ -31,6 +34,9 @@ export const QuizItemDetailGuessForm = ({
     post(`${window.location.pathname}/guess`, {
       preserveScroll: true,
       preserveState: true,
+      onSuccess: () => {
+        pause()
+      },
     })
   }
 

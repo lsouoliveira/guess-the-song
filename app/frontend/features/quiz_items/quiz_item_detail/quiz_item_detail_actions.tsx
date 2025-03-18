@@ -22,11 +22,7 @@ export const QuizItemDetailActions = ({
   const incrementForm = useForm({})
   const skipForm = useForm({})
   const { isReady } = useAudio()
-  const { playCount, isPlaying, play, increment } = useQuizItemPlayer()
-
-  const disabledControls = () => {
-    return playCount <= 0
-  }
+  const { isPlaying, play, increment } = useQuizItemPlayer()
 
   const isReplayButtonDisabled = () => {
     return (
@@ -107,7 +103,7 @@ export const QuizItemDetailActions = ({
           disabled={isIncrementButtonDisabled()}
           onClick={handleIncrement}
         >
-          5 seconds
+          {quizItem.game.song_segment_duration} seconds
         </Button>
       </div>
       <Button variant="outline" color="red" onClick={handleSkip}>

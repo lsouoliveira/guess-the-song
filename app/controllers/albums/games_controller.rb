@@ -3,7 +3,7 @@ module Albums
     before_action :set_album, only: :create
 
     def create
-      @game = @album.games.build(pool_size: 10)
+      @game = @album.games.build(game_params.merge(pool_size: 10))
       @game.initialize_items
 
       if @game.save
@@ -16,6 +16,10 @@ module Albums
     private
     def set_album
       @album = Album.find(params[:album_id])
+    end
+
+    def game_params
+      params.require(:game).permit(:difficulty)
     end
   end
 end

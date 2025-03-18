@@ -82,7 +82,10 @@ class QuizItem < ApplicationRecord
   end
 
   def guess(song_name)
-    return unless validate_guess(song_name)
+    unless validate_guess(song_name)
+      increment! :attempts
+      return
+    end
 
     transaction do
       completed!

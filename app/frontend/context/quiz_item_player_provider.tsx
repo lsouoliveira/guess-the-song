@@ -12,6 +12,7 @@ import { QuizItem } from "@/types/quiz_items"
 
 export type QuizItemPlayer = {
   play: () => void
+  pause: () => void
   increment: () => void
   playCount: number
   isPlaying: boolean
@@ -92,7 +93,7 @@ const ProviderRoot = ({
 
   return (
     <QuizItemPlayerContext.Provider
-      value={{ playCount, play, increment, isPlaying }}
+      value={{ playCount, play, pause, increment, isPlaying }}
     >
       {children}
     </QuizItemPlayerContext.Provider>

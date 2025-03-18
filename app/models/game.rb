@@ -1,7 +1,28 @@
 class Game < ApplicationRecord
   MAX_SCORE_BY_ITEM = 100
+  REPLAY_PENALTY = -20
+  INCREMENT_PENALTY = -30
+  ATTEMPT_PENALTY = -10
+  DIFFICULTY_CONFIG = {
+    easy: {
+      song_segment_duration: 5,
+      max_replays: 2,
+      max_increments: 2
+    },
+    medium: {
+      song_segment_duration: 3,
+      max_replays: 2,
+      max_increments: 2
+    },
+    hard: {
+      song_segment_duration: 1,
+      max_replays: 2,
+      max_increments: 2
+    }
+  }.freeze
 
   enum :status, %i[ ongoing completed ], default: :ongoing
+  enum :difficulty, %i[ easy medium hard ], default: :easy
 
   belongs_to :album
 
@@ -36,8 +57,8 @@ class Game < ApplicationRecord
   end
 
   def score
-    scope = ongoing? ? quiz_items : quiz_items.completed 
-    scope.sum { (MAX_SCORE_BY_ITEM + -it.replays_count * 25 -it.increments_count * 40).clamp(0, MAX_SCORE_BY_ITEM) }
+    scope = ongoing? ? quiz_items : quiz_items.completed
+    scope.sum { score_for(it).clamp(0, MAX_SCORE_BY_ITEM) }
   end
 
   def max_score
@@ -45,15 +66,19 @@ class Game < ApplicationRecord
   end
 
   def song_segment_duration
-    2
+    difficulty_config[:song_segment_duration]
   end
 
   def max_replays
-    2
+    difficulty_config[:max_replays]
   end
 
   def max_increments
-    2
+    difficulty_config[:max_increments]
+  end
+
+  def difficulty_config
+    DIFFICULTY_CONFIG[difficulty.to_sym]
   end
 
   def complete!
@@ -69,6 +94,12 @@ class Game < ApplicationRecord
     else
       complete!
     end
+  end
+
+  def score_for(quiz_item)
+    MAX_SCORE_BY_ITEM + quiz_item.replays_count * REPLAY_PENALTY +
+      quiz_item.increments_count * INCREMENT_PENALTY +
+      quiz_item.attempts * ATTEMPT_PENALTY
   end
 
   private
