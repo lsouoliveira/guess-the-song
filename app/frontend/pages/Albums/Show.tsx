@@ -20,7 +20,7 @@ export default function Show({ album }: { album: Album }) {
             <div>
               <Title order={4}>{album.name}</Title>
               <Text>
-                <p>{album.description}</p>
+                {album.description}
               </Text>
             </div>
           </Group>

@@ -30,12 +30,15 @@ export const AudioPlayerProvider = ({
   useEffect(() => {
     audioRef.current?.addEventListener("playing", handlePlaying)
     audioRef.current?.addEventListener("paused", handlePaused)
-    audioRef.current?.addEventListener("canplay", handleCanPlay)
+    audioRef.current?.addEventListener("canplaythrough", handleCanPlayThrough)
 
     return () => {
       audioRef.current?.removeEventListener("playing", handlePlaying)
       audioRef.current?.removeEventListener("paused", handlePaused)
-      audioRef.current?.removeEventListener("canplay", handleCanPlay)
+      audioRef.current?.removeEventListener(
+        "canplaythrough",
+        handleCanPlayThrough,
+      )
     }
   }, [])
 
@@ -47,7 +50,7 @@ export const AudioPlayerProvider = ({
     return setIsPlaying(false)
   }
 
-  const handleCanPlay = () => {
+  const handleCanPlayThrough = () => {
     setIsReady(true)
   }
 

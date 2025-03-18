@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         scope module: :quiz_items do
           resource :play, only: :create
           resource :guess, only: :create
+          resource :increment, only: :create
         end
       end
     end

@@ -34,6 +34,10 @@ class QuizItem < ApplicationRecord
     game.max_replays - replays_count
   end
 
+  def increments_available
+    game.max_increments - increments_count
+  end
+
   def can_replay?
     replays_available.positive?
   end
@@ -91,6 +95,16 @@ class QuizItem < ApplicationRecord
     end
 
     true
+  end
+
+  def increment_duration
+    if increments_count >= game.max_increments
+      errors.add(:increments_count, :no_increments_available)
+      return false
+    end
+
+    increment! :increments_count
+    increment! :plays_count
   end
 
   private

@@ -24,7 +24,7 @@ export const AlbumCard = ({ album }: AlbumCardProps) => {
               </Link>
 
               <Text c="white">
-                <p>{album.description}</p>
+                {album.description}
               </Text>
             </div>
           </div>

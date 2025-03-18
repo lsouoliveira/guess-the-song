@@ -19,8 +19,9 @@ export const QuizItemDetailActions = ({
   }
 
   const replayForm = useForm({})
+  const incrementForm = useForm({})
   const { isReady } = useAudio()
-  const { playCount, isPlaying, play } = useQuizItemPlayer()
+  const { playCount, isPlaying, play, increment } = useQuizItemPlayer()
 
   const disabledControls = () => {
     return playCount <= 0
@@ -36,11 +37,37 @@ export const QuizItemDetailActions = ({
     )
   }
 
+  const isIsIncrementsButtonDisabled = () => {
+    return (
+      quizItem.status !== "ongoing" ||
+      !isReady ||
+      isPlaying ||
+      quizItem.plays_count <= 0 ||
+      quizItem.increments_available <= 0
+    )
+  }
+
   const ReplayCountBadge = () => (
     <Badge color="red" circle>
       {quizItem.replays_available}
     </Badge>
   )
+
+  const IncrementsCountBadge = () => (
+    <Badge color="red" circle>
+      {quizItem.increments_available}
+    </Badge>
+  )
+
+  const handleIncrement = () => {
+    incrementForm.post(`${window.location.pathname}/increment`, {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        increment()
+      },
+    })
+  }
 
   const handleReplay = () => {
     replayForm.post(`${window.location.pathname}/play`, {
@@ -68,8 +95,9 @@ export const QuizItemDetailActions = ({
         <Button
           variant="default"
           leftSection={<IconPlus size={14} />}
-          disabled={disabledControls()}
-          className="hidden"
+          rightSection={<IncrementsCountBadge />}
+          disabled={isIsIncrementsButtonDisabled()}
+          onClick={handleIncrement}
         >
           5 seconds
         </Button>

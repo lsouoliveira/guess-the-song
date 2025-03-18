@@ -13,4 +13,6 @@ export type QuizItem = {
   song: Song
   previous_item_id: number
   next_item_id: number
+  increments_count: number
+  increments_available: number
 }

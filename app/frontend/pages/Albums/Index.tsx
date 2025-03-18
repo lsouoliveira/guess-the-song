@@ -21,7 +21,7 @@ export default function Index({ albums }: { albums: Array<Album> }) {
         <div>
           <div className="space-y-8">
             {albums.map((album) => (
-              <AlbumCard album={album} />
+              <AlbumCard album={album} key={album.id} />
             ))}
           </div>
         </div>

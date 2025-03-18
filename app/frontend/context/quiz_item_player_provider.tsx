@@ -10,8 +10,11 @@ import { AudioPlayerProvider } from "./audio_player_provider"
 import { useAudio } from "@/context/audio_player_provider"
 import { QuizItem } from "@/types/quiz_items"
 
+const INCREMENT_LENGTH = 5
+
 export type QuizItemPlayer = {
   play: () => void
+  increment: () => void
   playCount: number
   isPlaying: boolean
 }
@@ -60,6 +63,13 @@ const ProviderRoot = ({
     audioRef.current?.pause()
   }
 
+  const increment = () => {
+    setPlayCount((prev) => prev + 1)
+    setIsPlaying(true)
+
+    audioPlayer.play()
+  }
+
   const handleTimeUpdate = () => {
     const time = Math.floor(audioRef.current?.currentTime || 0)
 
@@ -71,12 +81,20 @@ const ProviderRoot = ({
   }
 
   const songEndTime = () => {
-    return quizItem.song.start_time + quizItem.game.song_segment_duration
+    return (
+      quizItem.song.start_time +
+      quizItem.game.song_segment_duration +
+      incrementsDuration()
+    )
+  }
+
+  const incrementsDuration = () => {
+    return quizItem.increments_count * INCREMENT_LENGTH
   }
 
   return (
     <QuizItemPlayerContext.Provider
-      value={{ playCount, play, isPlaying }}
+      value={{ playCount, play, increment, isPlaying }}
     >
       {children}
     </QuizItemPlayerContext.Provider>
