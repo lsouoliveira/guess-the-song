@@ -67,7 +67,12 @@ const PauseButton = ({ onPause }: { onPause: () => void }) => {
   )
 }
 
-export const Player = ({ src, songName, defaultVolume, onVolumeChange }: PlayerProps) => {
+export const Player = ({
+  src,
+  songName,
+  defaultVolume,
+  onVolumeChange,
+}: PlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -175,6 +180,7 @@ export const Player = ({ src, songName, defaultVolume, onVolumeChange }: PlayerP
             min={0}
             max={duration}
             onChange={handleChange}
+            label={null}
           />
         </div>
         <div className="text-sm">{formattedDuration}</div>
