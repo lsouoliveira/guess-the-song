@@ -1,5 +1,7 @@
 # Guess the song
 
+A game where the objective is to guess the song title after listening to a short segment of it.
+
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
     <div style="display: flex; gap: 10px;">
         <img src="https://github.com/user-attachments/assets/d027714a-6576-46a9-9992-5cb7418aadac" width="48%">
