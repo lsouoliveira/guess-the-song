@@ -27,7 +27,7 @@ class QuizItem < ApplicationRecord
   end
 
   def replays_count
-    [ plays_count - 1, 0 ].max
+    [ plays_count - increments_count - 1, 0 ].max
   end
 
   def replays_available
@@ -86,12 +86,7 @@ class QuizItem < ApplicationRecord
 
     transaction do
       completed!
-
-      if game.next_item?
-        game.next_item.ongoing!
-      else
-        game.complete!
-      end
+      game.set_next_item_or_complete!
     end
 
     true
@@ -105,6 +100,13 @@ class QuizItem < ApplicationRecord
 
     increment! :increments_count
     increment! :plays_count
+  end
+
+  def skip
+    transaction do
+      skipped!
+      game.set_next_item_or_complete!
+    end
   end
 
   private

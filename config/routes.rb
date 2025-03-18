@@ -10,6 +10,7 @@ Rails.application.routes.draw do
           resource :play, only: :create
           resource :guess, only: :create
           resource :increment, only: :create
+          resource :skip, only: :create
         end
       end
     end

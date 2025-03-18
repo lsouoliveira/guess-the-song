@@ -36,7 +36,8 @@ class Game < ApplicationRecord
   end
 
   def score
-    quiz_items.sum { (MAX_SCORE_BY_ITEM + -it.replays_count * 25 -it.increments_count * 40).clamp(0, MAX_SCORE_BY_ITEM) }
+    scope = ongoing? ? quiz_items : quiz_items.completed 
+    scope.sum { (MAX_SCORE_BY_ITEM + -it.replays_count * 25 -it.increments_count * 40).clamp(0, MAX_SCORE_BY_ITEM) }
   end
 
   def max_score
@@ -59,6 +60,14 @@ class Game < ApplicationRecord
     transaction do
       completed!
       update!(finished_at: Time.zone.now)
+    end
+  end
+
+  def set_next_item_or_complete!
+    if next_item?
+      next_item.ongoing!
+    else
+      complete!
     end
   end
 

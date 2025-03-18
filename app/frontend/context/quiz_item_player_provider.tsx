@@ -10,8 +10,6 @@ import { AudioPlayerProvider } from "./audio_player_provider"
 import { useAudio } from "@/context/audio_player_provider"
 import { QuizItem } from "@/types/quiz_items"
 
-const INCREMENT_LENGTH = 5
-
 export type QuizItemPlayer = {
   play: () => void
   increment: () => void
@@ -89,7 +87,7 @@ const ProviderRoot = ({
   }
 
   const incrementsDuration = () => {
-    return quizItem.increments_count * INCREMENT_LENGTH
+    return quizItem.increments_count * quizItem.game.song_segment_duration
   }
 
   return (
