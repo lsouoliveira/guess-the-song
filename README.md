@@ -1,6 +1,6 @@
 # Guess the song
 
-A game where the objective is to guess the title or artist of each song after listening to short segments.
+A game where the objective is to guess the title or artist of each song or piece after listening to short segments.
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
     <div style="display: flex; gap: 10px;">
