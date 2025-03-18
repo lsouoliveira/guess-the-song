@@ -107,6 +107,8 @@ class QuizItem < ApplicationRecord
       skipped!
       game.set_next_item_or_complete!
     end
+
+    true
   end
 
   private
