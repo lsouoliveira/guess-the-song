@@ -22,7 +22,7 @@ export const QuizItemDetailActions = ({
   const incrementForm = useForm({})
   const skipForm = useForm({})
   const { isReady } = useAudio()
-  const { isPlaying, play, increment } = useQuizItemPlayer()
+  const { isPlaying, play, pause, increment } = useQuizItemPlayer()
 
   const isReplayButtonDisabled = () => {
     return (
@@ -80,6 +80,9 @@ export const QuizItemDetailActions = ({
     skipForm.post(`${window.location.pathname}/skip`, {
       preserveScroll: true,
       preserveState: true,
+      onSuccess: () => {
+        pause()
+      }
     })
   }
 

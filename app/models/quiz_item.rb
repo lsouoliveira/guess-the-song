@@ -1,4 +1,6 @@
 class QuizItem < ApplicationRecord
+  SIMILIARITY_THRESHOLD = 0.9
+
   enum :status, %i[ not_started ongoing completed skipped ], default: :not_started
 
   belongs_to :game
@@ -116,10 +118,17 @@ class QuizItem < ApplicationRecord
 
   private
   def validate_guess(song_name)
-    return true if sanitize_guess(song.name) == sanitize_guess(song_name)
+    return true if compare_words(sanitize_guess(song.name), sanitize_guess(song_name)) >= SIMILIARITY_THRESHOLD
 
     errors.add(:song, :wrong_guess)
     false
+  end
+
+  def compare_words(a, b)
+    longest_length = [a.length, b.length].max
+    distance = DidYouMean::Levenshtein.distance(a, b)
+
+    (longest_length - distance) / longest_length.to_f
   end
 
   def sanitize_guess(song_name)

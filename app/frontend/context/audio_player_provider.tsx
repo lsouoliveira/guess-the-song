@@ -59,7 +59,11 @@ export const AudioPlayerProvider = ({
   }
 
   const seek = (time: number) => {
-    audioRef.current?.fastSeek(time)
+    if (!audioRef.current) {
+      return
+    }
+
+    audioRef.current.currentTime = time
   }
 
   return (

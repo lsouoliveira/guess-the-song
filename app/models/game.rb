@@ -57,7 +57,7 @@ class Game < ApplicationRecord
   end
 
   def score
-    scope = ongoing? ? quiz_items : quiz_items.completed
+    scope = ongoing? ? quiz_items.where.not(status: :skipped) : quiz_items.completed
     scope.sum { score_for(it).clamp(0, MAX_SCORE_BY_ITEM) }
   end
 
